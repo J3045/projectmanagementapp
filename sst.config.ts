@@ -8,6 +8,7 @@ export default {
       region: "ap-south-1",
     };
   },
+
   stacks(app: App) {
     app.stack(function Site({ stack }: { stack: Stack }) {
       const site = new NextjsSite(stack, "site", {
@@ -22,9 +23,15 @@ export default {
         },
       });
 
+      // Adding outputs for site URL
       stack.addOutputs({
         SiteUrl: site.url,
       });
     });
+  },
+  
+  // Global Lambda function runtime configuration
+  functionDefaults: {
+    runtime: "nodejs18.x", // Updated runtime to nodejs18.x
   },
 };
